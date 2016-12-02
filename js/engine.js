@@ -173,28 +173,34 @@ var Engine = (function(global) {
     renderText()
 
 
-        function lifeHearts(x ,y) {
-            
 
+        function lifeHearts(x,y) {
+            
+            
             for(i = 0; i < y; i++) {
                 heartsImage = new Image();
                 heartsImage.src = 'images/Heart.png';
                 ctx.drawImage(heartsImage,x,550,64,100);
                 x += 60 
-                if(player.y < 20) {
-                    y -= 1;
-                }
-                
-                }
+
+
+            switch(player.playerReset()) {
+                case player.playerReset():
+                y -= 1;
+                console.log("execute switch")
+                break
 
             }
+            }
+            };
+            
 
 
         lifeHearts(20,3)
 
         function renderLevel2() {
             var rowImages = [
-                'images/grass-block.png',    // Row 1
+                'images/grass-block.png',   // Row 1
                 'images/water-block.png',   // Row 2
                 'images/water-block.png',   // Row 3
                 'images/water-block.png',   // Row 4

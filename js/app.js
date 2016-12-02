@@ -84,6 +84,7 @@ Player.prototype.collision = function() {
             this.playerReset()
            
             }
+        
         }
 };
 
