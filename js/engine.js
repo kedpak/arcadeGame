@@ -190,8 +190,8 @@ var Engine = (function(global) {
                 if(collision == !false && z == 3) {
                     z = 2
                 }
-                else if(collision = !false && z = 2){
-                    z == 1
+                else if(collision == !false && z == 2){
+                    z = 1
                 } 
                
 
