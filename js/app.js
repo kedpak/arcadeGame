@@ -84,9 +84,6 @@ Player.prototype.collision = function() {
             console.log('collision');
             this.playerReset()
             collision = !false;
-                if(collision = !false){
-                    collision == false;
-                }
            
             }
 
@@ -97,11 +94,11 @@ Player.prototype.collision = function() {
 Player.prototype.playerReset = function(){
             this.x = 255;
             this.y=  450;
-            go = true;
+           
 }
 
 
-var go = false;
+
 
 
 
