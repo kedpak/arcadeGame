@@ -174,26 +174,31 @@ var Engine = (function(global) {
 
 
 
-        function lifeHearts(x,y) {
+        function lifeHearts(x,z) {
             
-            
-            for(i = 0; i < y; i++) {
+            //this loops the multiple heart images into the game
+            for(i = 0; i < z; i++) {
                 heartsImage = new Image();
                 heartsImage.src = 'images/Heart.png';
                 ctx.drawImage(heartsImage,x,550,64,100);
                 x += 60 
 
+               
+                
+          
 
-            switch(player.playerReset()) {
-                case player.playerReset():
-                y -= 1;
-                console.log("execute switch")
-                break
+                if(collision == !false && z == 3) {
+                    z = 2
+                }
+                else if(collision = !false && z = 2){
+                    z == 1
+                } 
+               
 
-            }
-            }
+                // this is intended to delete one heart if the playerReset() function executes. 
+               }
             };
-            
+
 
 
         lifeHearts(20,3)

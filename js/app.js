@@ -66,10 +66,11 @@ Player.prototype.update = function(dt) {
     
     //player.playerReset();
     player.collision();
+
     
 };
 
-
+var collision = false;
 Player.prototype.collision = function() {
         
         for(i = 0; i < allEnemies.length; i++) {
@@ -82,20 +83,25 @@ Player.prototype.collision = function() {
 
             console.log('collision');
             this.playerReset()
+            collision = !false;
+                if(collision = !false){
+                    collision == false;
+                }
            
             }
-        
+
         }
+      
 };
 
 Player.prototype.playerReset = function(){
             this.x = 255;
             this.y=  450;
+            go = true;
 }
 
 
-
-
+var go = false;
 
 
 
