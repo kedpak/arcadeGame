@@ -55,10 +55,11 @@ Enemy.prototype.render = function() {
 
 //Player functions//////////////////
 
-var Player = function(x, y) {
+var Player = function(x,y) {
     this.sprite = 'images/char-boy.png';
     this.x = x;
     this.y = y;
+    
     
 };
 
@@ -66,9 +67,12 @@ Player.prototype.update = function(dt) {
     
     //player.playerReset();
     player.collision();
+    //player.lifeHearts(20,3)
 
     
 };
+
+
 
 var collision = false;
 Player.prototype.collision = function() {
@@ -83,7 +87,7 @@ Player.prototype.collision = function() {
 
             console.log('collision');
             this.playerReset()
-            collision = !false;
+            collision = true;
            
             }
 
@@ -104,9 +108,12 @@ Player.prototype.playerReset = function(){
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+     //ctx.drawImage(Resources.get(this.lifeHearts),80,550,64,100)
+    //ctx.drawImage(Resources.get(this.lifeHearts),140,550,64,100)
+    }; 
+    
 
-       
-}; 
+
 
 
 
@@ -144,6 +151,31 @@ Player.prototype.handleInput = function(keys) {
     };
     
 };
+
+var LifeHearts = function(a,b) {
+    this.lifeHearts = 'images/Heart.png';
+    this.a = a;
+    this.b = b;
+};
+
+LifeHearts.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.lifeHearts),this.a,this.b,64,100)
+};
+
+LifeHearts.prototype.lifeLoss = function() {
+    if(collision == true && hearts.length > 0) {
+        hearts.pop(0);
+        console.log("heartloss")
+        collision = false;
+    }
+    /*else if(collision == true && hearts.length == 1) {
+        hearts.splice(1,1);
+    }*/
+};
+
+LifeHearts.prototype.update = function() {
+    this.lifeLoss();
+};
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -158,9 +190,15 @@ Player.prototype.handleInput = function(keys) {
  enemy4 = new Enemy(0,340);
  //enemy4 = new Enemy();
  //enemy5 = new Enemy();
+ heart1 = new LifeHearts(20,550)
+ heart2 = new LifeHearts(80,550)
+ heart3 = new LifeHearts(140,550)
+ heart4 = new LifeHearts(200,550)
 
  var allEnemies = [enemy,enemy2,enemy3,enemy4];
  var player = new Player(255,460);
+ var hearts = [heart1,heart2,heart3]
+ 
 
 
 

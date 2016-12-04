@@ -96,13 +96,17 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function(enemy,enemy2,enemy3,enemy4) {
+        allEnemies.forEach(function(enemy) {
 
             enemy.update(dt);
             
 
         });
         player.update();
+
+        hearts.forEach(function(lifeHearts){
+            lifeHearts.update();
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -164,7 +168,11 @@ var Engine = (function(global) {
         function score(x) {
             ctx.font = "30px Georgia";
             ctx.fillStyle = "blue";
-            ctx.fillText("SCORE: ", 450, 600) 
+            ctx.fillText("SCORE:", 450, 600) 
+
+             
+
+
         }
              score()
             
@@ -174,7 +182,7 @@ var Engine = (function(global) {
 
 
 
-        function lifeHearts(x,z) {
+       /* function lifeHearts(x,z) {
             
             //this loops the multiple heart images into the game
             for(i = 0; i < z; i++) {
@@ -187,21 +195,21 @@ var Engine = (function(global) {
                 
           
 
-                if(collision == !false && z == 3) {
-                    z = 2
+                if(collision == true  && player.lifeHearts > 0) {
+                    
+                    z -= 1;
+                    collision == false;
                 }
-                else if(collision == !false && z == 2){
-                    z = 1
-                } 
+                
                
 
                 // this is intended to delete one heart if the playerReset() function executes. 
                }
             };
 
+            lifeHearts(20,3)*/
 
-
-        lifeHearts(20,3)
+        
 
         function renderLevel2() {
             var rowImages = [
@@ -261,6 +269,9 @@ var Engine = (function(global) {
         });
 
         player.render();
+        hearts.forEach(function(lifeHearts){
+            lifeHearts.render();
+        });
 }
 
 
@@ -284,7 +295,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/char-boy.png',
-        'images/enemy-bug.png'
+        'images/enemy-bug.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
