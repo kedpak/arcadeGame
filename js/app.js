@@ -68,6 +68,7 @@ Player.prototype.update = function(dt) {
     //player.playerReset();
     player.collision();
     //player.lifeHearts(20,3)
+    this.crossed();
 
     
 };
@@ -94,28 +95,29 @@ Player.prototype.collision = function() {
         }
       
 };
-
+var reset = false;
 Player.prototype.playerReset = function(){
             this.x = 255;
-            this.y=  450;
-           
+            this.y =  450;
+            
 }
 
-
+Player.prototype.crossed = function() {
+    if(this.y < 20) {
+        this.playerReset()
+        reset = true;
+        
+    }
+}
 
 
 
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-     //ctx.drawImage(Resources.get(this.lifeHearts),80,550,64,100)
-    //ctx.drawImage(Resources.get(this.lifeHearts),140,550,64,100)
+     
     }; 
     
-
-
-
-
 
 
 Player.prototype.handleInput = function(keys) {
@@ -166,16 +168,60 @@ LifeHearts.prototype.lifeLoss = function() {
     if(collision == true && hearts.length > 0) {
         hearts.pop(0);
         console.log("heartloss")
+
         collision = false;
     }
-    /*else if(collision == true && hearts.length == 1) {
-        hearts.splice(1,1);
-    }*/
+    
 };
 
 LifeHearts.prototype.update = function() {
     this.lifeLoss();
 };
+
+var Score = function(x,y) {
+    this.x = x;
+    this.y = y;
+};
+
+var winPoint = false;
+
+
+Score.prototype.update = function() {
+    this.points();
+}
+
+Score.prototype.points = function() {
+    if(reset == true) {
+        winPoint = true;
+
+    }
+}
+
+
+var start = 0
+Score.prototype.render = function(){
+    
+    ctx.font = "50px Ariel";
+    ctx.fillStyle = "black";
+    ctx.fillText(start, this.x, this.y); 
+    if(winPoint == true) {
+        
+        start++;
+        winPoint = false;
+        reset = false;
+        console.log("point up")
+        
+    };
+
+
+};
+
+
+
+
+
+
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
@@ -198,7 +244,7 @@ LifeHearts.prototype.update = function() {
  var allEnemies = [enemy,enemy2,enemy3,enemy4];
  var player = new Player(255,460);
  var hearts = [heart1,heart2,heart3]
- 
+ var score = new Score(550,600)
 
 
 

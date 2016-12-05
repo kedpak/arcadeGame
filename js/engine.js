@@ -107,6 +107,9 @@ var Engine = (function(global) {
         hearts.forEach(function(lifeHearts){
             lifeHearts.update();
         });
+
+        score.update();
+         score.points()
     }
 
     /* This function initially draws the "game level", it will then call
@@ -120,7 +123,7 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/grass-block.png',    // Row 1
+                'images/water-block.png',    // Row 1
                 'images/stone-block.png',   // Row 2
                 'images/stone-block.png',   // Row 3
                 'images/stone-block.png',   // Row 4
@@ -165,49 +168,22 @@ var Engine = (function(global) {
             ctx.fillText("AWESOME!", 100,400); 
         }
 
-        function score(x) {
-            ctx.font = "30px Georgia";
+        
+        function points() {
+            ctx.font = "20px Georgia";
             ctx.fillStyle = "blue";
-            ctx.fillText("SCORE:", 450, 600) 
-
-             
-
-
+            ctx.fillText("POINTS", 525, 625);
         }
-             score()
+
+        
+            points() 
             
         }
-
+        
     renderText()
 
 
 
-       /* function lifeHearts(x,z) {
-            
-            //this loops the multiple heart images into the game
-            for(i = 0; i < z; i++) {
-                heartsImage = new Image();
-                heartsImage.src = 'images/Heart.png';
-                ctx.drawImage(heartsImage,x,550,64,100);
-                x += 60 
-
-               
-                
-          
-
-                if(collision == true  && player.lifeHearts > 0) {
-                    
-                    z -= 1;
-                    collision == false;
-                }
-                
-               
-
-                // this is intended to delete one heart if the playerReset() function executes. 
-               }
-            };
-
-            lifeHearts(20,3)*/
 
         
 
@@ -272,7 +248,11 @@ var Engine = (function(global) {
         hearts.forEach(function(lifeHearts){
             lifeHearts.render();
         });
+        score.render();
+        score.update();
+        score.points()
 }
+
 
 
 
