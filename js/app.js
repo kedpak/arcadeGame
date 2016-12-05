@@ -167,7 +167,7 @@ LifeHearts.prototype.render = function() {
 LifeHearts.prototype.lifeLoss = function() {
     if(collision == true && hearts.length > 0) {
         hearts.pop(0);
-        console.log("heartloss")
+        console.log("heartloss") 
 
         collision = false;
     }
@@ -176,7 +176,15 @@ LifeHearts.prototype.lifeLoss = function() {
 
 LifeHearts.prototype.update = function() {
     this.lifeLoss();
+    this.gameOver();
 };
+
+LifeHearts.prototype.gameOver = function() {
+    if(hearts.length < 1) {
+        alert("Game over! Haha you suck");
+        location.reload();
+    }
+}
 
 var Score = function(x,y) {
     this.x = x;
@@ -215,6 +223,8 @@ Score.prototype.render = function(){
 
 
 };
+
+//var GameOver = function() {}
 
 
 
