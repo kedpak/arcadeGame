@@ -14,10 +14,6 @@ var Enemy = function(x,y) {
 };     
 
 
-
-
-
-
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -38,9 +34,9 @@ Enemy.prototype.randomSpeed = function(){
         return Math.floor(Math.random()*(max-min+1)+min);
     }
     this.x = 1;
-    this.speed = randomIntFromInterval(100,250);
+    this.speed = randomIntFromInterval(100,150);
     console.log("randomSpeed = "+ this.speed);
-}
+};
 
 
 
@@ -65,15 +61,15 @@ var Player = function(x,y) {
 
 Player.prototype.update = function(dt) {
     
-    //player.playerReset();
-    player.collision();
+    
+    this.collision();
     //player.lifeHearts(20,3)
     this.crossed();
+    this.gemCollect();
+
 
     
 };
-
-
 
 var collision = false;
 Player.prototype.collision = function() {
@@ -98,9 +94,9 @@ Player.prototype.collision = function() {
 var reset = false;
 Player.prototype.playerReset = function(){
             this.x = 255;
-            this.y =  450;
+            this.y = 450;
             
-}
+};
 
 Player.prototype.crossed = function() {
     if(this.y < 20) {
@@ -108,9 +104,7 @@ Player.prototype.crossed = function() {
         reset = true;
         
     }
-}
-
-
+};
 
 
 Player.prototype.render = function() {
@@ -118,7 +112,6 @@ Player.prototype.render = function() {
      
     }; 
     
-
 
 Player.prototype.handleInput = function(keys) {
     switch(keys){
@@ -142,8 +135,8 @@ Player.prototype.handleInput = function(keys) {
     if (this.x < 0) {
         this.x = 0;
     }
-    else if (this.x > 560) {
-        this.x = 530;
+    else if (this.x > 520) {
+        this.x = 520;
     }
     else if (this.y < 0) {
         this.y =0;
@@ -153,6 +146,22 @@ Player.prototype.handleInput = function(keys) {
     };
     
 };
+
+Player.prototype.gemCollect = function() {
+        var playerChar = {x: this.x, y: this.y, width:60, height:60};
+        var gems = {x: gem.x, y: gem.y, width:70, height:20};
+
+    if(playerChar.x < gems.x + gems.width &&
+            playerChar.x + playerChar.width > gems.x &&
+            playerChar.y < gems.y + gems.height &&
+            playerChar.height + playerChar.y > gems.y) {
+
+            console.log('gem collected');
+            
+            
+        }
+    };
+
 
 var LifeHearts = function(a,b) {
     this.lifeHearts = 'images/Heart.png';
@@ -181,10 +190,10 @@ LifeHearts.prototype.update = function() {
 
 LifeHearts.prototype.gameOver = function() {
     if(hearts.length < 1) {
-        alert("Game over! Haha you suck");
+        alert("Game over! Your score was " + start + "!! Click OK to try again!!");
         location.reload();
     }
-}
+};
 
 var Score = function(x,y) {
     this.x = x;
@@ -196,14 +205,14 @@ var winPoint = false;
 
 Score.prototype.update = function() {
     this.points();
-}
+};
 
 Score.prototype.points = function() {
     if(reset == true) {
         winPoint = true;
 
     }
-}
+};
 
 
 var start = 0
@@ -215,16 +224,40 @@ Score.prototype.render = function(){
     if(winPoint == true) {
         
         start++;
+        gemBlue = false;
         winPoint = false;
         reset = false;
-        console.log("point up")
+        console.log("point up");
         
     };
 
 
 };
 
-//var GameOver = function() {}
+var Gem = function(x,y) {
+    this.sprite = "images/Gem Blue.png";
+    this.x = x;
+    this.y = y;
+
+};
+
+Gem.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y,60,100)
+    
+
+};
+
+Gem.prototype.update = function(){
+   
+};
+
+randomGemX = function() {
+    return Math.round(Math.random() * 560) + 1
+};
+
+randomGemY = function() {
+    return Math.round(Math.random() * 360) + 70
+};
 
 
 
@@ -251,14 +284,12 @@ Score.prototype.render = function(){
  heart3 = new LifeHearts(140,550)
  heart4 = new LifeHearts(200,550)
 
+
  var allEnemies = [enemy,enemy2,enemy3,enemy4];
  var player = new Player(255,460);
- var hearts = [heart1,heart2,heart3]
- var score = new Score(550,600)
-
-
-
-
+ var hearts = [heart1,heart2,heart3,heart4];
+ var score = new Score(520,600);
+ var gem = new Gem(randomGemX(),randomGemY());
 
 
 // This listens for key presses and sends the keys to your

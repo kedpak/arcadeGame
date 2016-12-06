@@ -109,7 +109,9 @@ var Engine = (function(global) {
         });
 
         score.update();
-         score.points()
+         score.points();
+         gem.update();
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -161,71 +163,29 @@ var Engine = (function(global) {
             ctx.fillText("Get to the other side!", 220,100);
 
 
-
-            if(player.y < 20) {
-                ctx.font = "40px Georgia";
-            ctx.fillStyle = "red";
-            ctx.fillText("AWESOME!", 100,400); 
-        }
-
         
         function points() {
             ctx.font = "20px Georgia";
             ctx.fillStyle = "blue";
             ctx.fillText("POINTS", 525, 625);
+
+
         }
 
         
-            points() 
+            points() ;
             
         }
         
-    renderText()
+    renderText();
 
-
-
-
-        
-
-        function renderLevel2() {
-            var rowImages = [
-                'images/grass-block.png',   // Row 1
-                'images/water-block.png',   // Row 2
-                'images/water-block.png',   // Row 3
-                'images/water-block.png',   // Row 4
-                'images/water-block.png',   // Row 5  
-                'images/grass-block.png',   // Row 6
-                'images/grass-block.png'    // Row 7
-            ],
-            numRows = 7,
-            numCols = 6,
-            row, col;
-
-        /* Loop through the number of rows and columns we've defined above
-         * and, using the rowImages array, draw the correct image for that
-         * portion of the "grid"
-         */
-        for (row = 0; row < numRows; row++) {
-            for (col = 0; col < numCols; col++) {
-                /* The drawImage function of the canvas' context element
-                 * requires 3 parameters: the image to draw, the x coordinate
-                 * to start drawing and the y coordinate to start drawing.
-                 * We're using our Resources helpers to refer to our images
-                 * so that we get the benefits of caching these images, since
-                 * we're using them over and over.
-                 */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 92);
-
-        }
-
-    }
 
    
-}
+
         
      
 
-    }
+    };
 
     /* This function is called by the render function and is called on each game
      * tick. Its purpose is to then call the render functions you have defined
@@ -236,8 +196,7 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
 
-
-
+        gem.render()
         allEnemies.forEach(function(enemy) {
 
             enemy.render();
@@ -250,7 +209,10 @@ var Engine = (function(global) {
         });
         score.render();
         score.update();
-        score.points()
+        score.points();
+
+
+       
 }
 
 
@@ -276,7 +238,8 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/char-boy.png',
         'images/enemy-bug.png',
-        'images/Heart.png'
+        'images/Heart.png',
+        'images/Gem Blue.png'
     ]);
     Resources.onReady(init);
 
