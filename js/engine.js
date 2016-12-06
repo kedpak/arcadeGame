@@ -59,7 +59,7 @@ var Engine = (function(global) {
          * function again as soon as the browser is able to draw another frame.
          */
         win.requestAnimationFrame(main);
-    }
+    };
 
 
 
@@ -71,7 +71,7 @@ var Engine = (function(global) {
         reset();
         lastTime = Date.now();
         main();
-    }
+    };
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how
@@ -108,11 +108,13 @@ var Engine = (function(global) {
             lifeHearts.update();
         });
 
-        score.update();
+         score.update();
          score.points();
          gem.update();
+         bomb.update();
+         pointText.update();
 
-    }
+    };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -152,30 +154,30 @@ var Engine = (function(global) {
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 92);
             }
-        }
+        };
 
 
 
         renderEntities();
         function renderText() {
-            ctx.font = "20px Georgia";
+            ctx.font = "20px Comic Sans MS";
             ctx.fillStyle = "yellow";
             ctx.fillText("Get to the other side!", 220,100);
 
 
         
         function points() {
-            ctx.font = "20px Georgia";
+            ctx.font = "20px Comic Sans MS";
             ctx.fillStyle = "blue";
-            ctx.fillText("POINTS", 525, 625);
+            ctx.fillText("POINTS", 510, 625);
 
 
-        }
+        };
 
         
             points() ;
             
-        }
+        };
         
     renderText();
 
@@ -196,7 +198,11 @@ var Engine = (function(global) {
          * the render function you have defined.
          */
 
-        gem.render()
+        gem.render();
+        allBombs.forEach(function(bomb) {
+            bomb.render();
+        });
+        
         allEnemies.forEach(function(enemy) {
 
             enemy.render();
@@ -210,10 +216,12 @@ var Engine = (function(global) {
         score.render();
         score.update();
         score.points();
+        
+
 
 
        
-}
+};
 
 
 
@@ -226,7 +234,7 @@ var Engine = (function(global) {
 
         
         
-    }
+    };
 
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
@@ -239,7 +247,8 @@ var Engine = (function(global) {
         'images/char-boy.png',
         'images/enemy-bug.png',
         'images/Heart.png',
-        'images/Gem Blue.png'
+        'images/Gem Blue.png',
+        'images/bomb.png'
     ]);
     Resources.onReady(init);
 
