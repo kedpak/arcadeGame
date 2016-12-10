@@ -61,20 +61,16 @@ var Player = function(x,y) {
     
     
 };
-// Updates player related interactions
+// Updates player related interactions when colliding with enemy, crossing to water, and collecting items.
 Player.prototype.update = function(dt) {
-    
     
     this.collision();
     this.crossed();
     this.gemCollect();
     this.bombHit();
-
-
-    
 };
 
-// Deals with the player/enemy collision 
+// Function which handles player/enemy collision.
 var collision = false;
 Player.prototype.collision = function() {
         
@@ -91,12 +87,10 @@ Player.prototype.collision = function() {
             collision = true;
            
             }
-
-        };
-      
+       }
 };
 
-// Reset function for when player collides with enemy
+// Reset function for when player collides with an enemy.
 var reset = false;
 Player.prototype.playerReset = function(){
             this.x = 255;
@@ -104,7 +98,7 @@ Player.prototype.playerReset = function(){
             
 };
 
-// Function to reset bomb location when player crosses to river, and resets player location to start
+// Function to reset bomb location when player crosses to river, and resets player location.
 Player.prototype.crossed = function() {
     if(this.y < 20) {
         this.playerReset()
@@ -113,13 +107,13 @@ Player.prototype.crossed = function() {
         }
 };
 
-// Renders player sprite onto board
+// Renders the player sprite onto the game screen. 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 80,130);
      
     }; 
     
-// Implements keyboard controls to game
+// Implements keyboard controls into the game. 
 Player.prototype.handleInput = function(keys) {
     switch(keys){
         case 'up':
@@ -154,7 +148,7 @@ Player.prototype.handleInput = function(keys) {
     
 };
 
-// Function for collision between player and gem item
+// Function for collision detection between player and gem item.
 Player.prototype.gemCollect = function() {
         var playerChar = {x: this.x, y: this.y, width:60, height:60};
         var gems = {x: gem.x, y: gem.y, width:60, height:60};
@@ -172,7 +166,7 @@ Player.prototype.gemCollect = function() {
         }
     };
 
-// Function for collision between player and bomb item
+// Function for collision detection between player and bomb item.
 var moveBomb = false;
 Player.prototype.bombHit = function() {
         
@@ -196,7 +190,7 @@ Player.prototype.bombHit = function() {
 }
 
 
-// Functions rendering hearts and heart loss mechanics
+// Functions render the lifes hearts onto game screen and initiates heart loss mechanics.
 
 var LifeHearts = function(a,b) {
     this.lifeHearts = 'images/Heart.png';
@@ -223,6 +217,9 @@ LifeHearts.prototype.update = function() {
     this.gameOver();
 };
 
+
+
+
 // Initiates game over alert when heart hits 0 OR time clock hits 0
 LifeHearts.prototype.gameOver = function() {
     if(hearts.length < 1 || sec == 0) {
@@ -232,7 +229,7 @@ LifeHearts.prototype.gameOver = function() {
 };
 
 
-// Functions that render player's score and updates accordingly
+// Functions that render player's score and updates accordingly.
 var Score = function(x,y) {
     this.x = x;
     this.y = y;
@@ -253,6 +250,7 @@ Score.prototype.points = function() {
     }
 };
 
+// Renders the scoreboard onto the games screen.
 
 var start = 0
 timePoint = false;
@@ -268,13 +266,12 @@ Score.prototype.render = function(){
         winPoint = false;
         reset = false;
         console.log("point up");
-        
     };
-
-
 };
 
-// Functions rendering gem item and updates accordingly
+
+
+// Functions render gem item and updates their activity accordingly.
 var Gem = function(x,y) {
     this.sprite = "images/Gem Blue.png";
     this.x = x;
@@ -285,12 +282,8 @@ var Gem = function(x,y) {
 Gem.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite),this.x,this.y,60,100)
     
-
 };
 
-Gem.prototype.update = function(){
-   
-};
 
 randomGemX = function() {
     return Math.round(Math.random() * 560) + 1;
@@ -301,7 +294,7 @@ randomGemY = function() {
 };
 
 
-// Functions render bomb item and updates accordingly 
+// Functions render bomb items and updates their activity accordingly.
 var Bomb = function(x,y) {
     this.sprite = "images/bomb.png";
     this.x = x;
@@ -332,7 +325,7 @@ Bomb.prototype.update = function() {
 
 
 
-// Function renders timer text onto game screen 
+// Function renders timer text onto the game screen.
 var TimerText = function(x,y) {
     this.x = x;
     this.y = y;
@@ -349,7 +342,7 @@ TimerText.prototype.render = function() {
     
 };
 
-// Sets up a countdown function 
+// Sets up a countdown function to give game a time limit. 
 timer = function(){
     sec--;}
     
@@ -364,9 +357,7 @@ countDown()
 
 
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+
 
 
 // Now instantiate your objects.
@@ -394,7 +385,7 @@ countDown()
  var gem = new Gem(randomGemX(),randomGemY());
  var allBombs = [bomb,bomb2,bomb3];
  var timerText = new TimerText(520,120)
- //var timer = new Timer();
+ 
 
 
 // This listens for key presses and sends the keys to your

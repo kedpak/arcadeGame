@@ -110,11 +110,8 @@ var Engine = (function(global) {
 
          score.update();
          score.points();
-         gem.update();
          bomb.update();
-         
-
-    };
+        };
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
@@ -166,13 +163,12 @@ var Engine = (function(global) {
 
 
         
-        function points() {
+            function points() {
             ctx.font = "20px Comic Sans MS";
             ctx.fillStyle = "blue";
             ctx.fillText("POINTS", 510, 625);
 
-
-        };
+            };
 
         
             points() ;
@@ -180,12 +176,6 @@ var Engine = (function(global) {
         };
         
     renderText();
-
-
-   
-
-        
-     
 
     };
 
@@ -218,11 +208,6 @@ var Engine = (function(global) {
         score.points();
         timerText.render();
         
-        
-
-
-
-       
 };
 
 
