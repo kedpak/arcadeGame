@@ -1,6 +1,6 @@
-
+'use strict';
 // Alert message for game instructions before game starts
-alert('Get as many points in 60 seconds! Use arrow keys to move! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!')
+alert('Get as many points in 60 seconds! Use arrow keys to move! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!');
 
 //////////Enemies our player must avoid
 var Enemy = function(x,y) {
@@ -74,7 +74,7 @@ Player.prototype.update = function(dt) {
 var collision = false;
 Player.prototype.collision = function() {
         
-        for(i = 0; i < allEnemies.length; i++) {
+        for(var i = 0; i < allEnemies.length; i++) {
         var playerChar = {x: this.x, y: this.y, width:40, height:60};
         var enemyChar = {x: allEnemies[i].x, y: allEnemies[i].y, width:50, height:60};
         if(playerChar.x < enemyChar.x + enemyChar.width &&
@@ -82,8 +82,7 @@ Player.prototype.collision = function() {
             playerChar.y < enemyChar.y + enemyChar.height &&
             playerChar.height + playerChar.y > enemyChar.y) {
 
-            console.log('collision');
-            this.playerReset()
+            this.playerReset();
             collision = true;
            
             }
@@ -101,7 +100,7 @@ Player.prototype.playerReset = function(){
 // Function to reset bomb location when player crosses to river, and resets player location.
 Player.prototype.crossed = function() {
     if(this.y < 20) {
-        this.playerReset()
+        this.playerReset();
         reset = true;
         moveBomb = true;
         }
@@ -115,24 +114,26 @@ Player.prototype.render = function() {
     
 // Implements keyboard controls into the game. 
 Player.prototype.handleInput = function(keys) {
+    
+    var movement = 50;
     switch(keys){
         case 'up':
-            this.y -= 50;
-            console.log("Pressed up key")
-            break
+            this.y -= movement;
+            console.log("Pressed up key");
+            break;
         case 'down':
-            this.y += 50;
-            console.log("Pressed down key")
-            break
+            this.y += movement;
+            console.log("Pressed down key");
+            break;
         case 'left':
-            this.x -= 50;
-            console.log("Pressed left key")
-            break
+            this.x -= movement;
+            console.log("Pressed left key");
+            break;
         case 'right':
-            this.x += 50;
-            console.log("Pressed Right key")
-            break
-    }; 
+            this.x += movement;
+            console.log("Pressed Right key");
+            break;
+    }
     if (this.x < 0) {
         this.x = 0;
     }
@@ -144,7 +145,7 @@ Player.prototype.handleInput = function(keys) {
     }
     else if (this.y > 500) {
         this.y = 500;
-    };
+    }
     
 };
 
@@ -170,7 +171,7 @@ Player.prototype.gemCollect = function() {
 var moveBomb = false;
 Player.prototype.bombHit = function() {
         
-    for(i = 0; i < allBombs.length; i++) {
+    for(var i = 0; i < allBombs.length; i++) {
         var playerChar = {x: this.x, y: this.y, width:60, height:50};
         var bombs = {x: allBombs[i].x, y: allBombs[i].y, width:32, height:32};
 
@@ -185,9 +186,9 @@ Player.prototype.bombHit = function() {
             allBombs[i].y = Math.round(Math.random() * 360) + 70;
             start -= 1;
             moveBomb = false;
-        };
+        }
     }
-}
+};
 
 
 // Functions render the lifes hearts onto game screen and initiates heart loss mechanics.
@@ -199,14 +200,12 @@ var LifeHearts = function(a,b) {
 };
 
 LifeHearts.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.lifeHearts),this.a,this.b,64,100)
+    ctx.drawImage(Resources.get(this.lifeHearts),this.a,this.b,64,100);
 };
 
 LifeHearts.prototype.lifeLoss = function() {
-    if(collision == true && hearts.length > 0) {
+    if(collision === true && hearts.length > 0) {
         hearts.pop(0);
-        console.log("heartloss") 
-
         collision = false;
     }
     
@@ -222,7 +221,7 @@ LifeHearts.prototype.update = function() {
 
 // Initiates game over alert when heart hits 0 OR time clock hits 0
 LifeHearts.prototype.gameOver = function() {
-    if(hearts.length < 1 || sec == 0) {
+    if(hearts.length < 1 || sec === 0) {
         alert("Game over! Your score was " + start + "!! Click OK to try again!!");
         location.reload();
     }
@@ -243,30 +242,29 @@ Score.prototype.update = function() {
 };
 
 Score.prototype.points = function() {
-    if(reset == true) {
-        winPoint = true;
-        timePoint = true;
+    if(reset === true) {
+         winPoint = true;
+         timePoint = true;
 
     }
 };
 
 // Renders the scoreboard onto the games screen.
 
-var start = 0
-timePoint = false;
+var start = 0;
+var timePoint = false;
 Score.prototype.render = function(){
     
     ctx.font = "50px Ariel";
     ctx.fillStyle = "black";
     ctx.fillText(start, this.x, this.y); 
-    if(winPoint == true) {
+    if(winPoint === true) {
         
         start ++;
-        gemBlue = false;
         winPoint = false;
         reset = false;
-        console.log("point up");
-    };
+        
+    }
 };
 
 
@@ -280,16 +278,16 @@ var Gem = function(x,y) {
 };
 
 Gem.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite),this.x,this.y,60,100)
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y,60,100);
     
 };
 
 
-randomGemX = function() {
+var randomGemX = function() {
     return Math.round(Math.random() * 560) + 1;
 };
 
-randomGemY = function() {
+var randomGemY = function() {
     return Math.round(Math.random() * 360) + 70;
 };
 
@@ -302,12 +300,12 @@ var Bomb = function(x,y) {
 };
 
 Bomb.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite),this.x,this.y,70,70)
+    ctx.drawImage(Resources.get(this.sprite),this.x,this.y,70,70);
 };
 
 Bomb.prototype.moveBomb = function() {
     
-    if (moveBomb == true) {
+    if (moveBomb === true) {
         bomb.x = Math.round(Math.random() * 560) + 1;
         bomb.y = Math.round(Math.random() * 360) + 100;
         bomb2.x = Math.round(Math.random() * 560) + 1;
@@ -331,7 +329,7 @@ var TimerText = function(x,y) {
     this.y = y;
 };
 
-sec = 60;
+var sec = 60;
 TimerText.prototype.render = function() { 
    
 
@@ -343,17 +341,16 @@ TimerText.prototype.render = function() {
 };
 
 // Sets up a countdown function to give game a time limit. 
-timer = function(){
-    sec--;}
+var timer = function(){
+    sec--;};
     
-    console.log("timer");
-    countDown = function(){
-        var timeDown = setInterval(timer,1000)
-        setInterval(timer,1000)
-        clearInterval(timeDown)
+    var countDown = function(){
+        var timeDown = setInterval(timer,1000);
+        setInterval(timer,1000);
+        clearInterval(timeDown);
     };
 
-countDown()
+countDown();
 
 
 
@@ -363,20 +360,20 @@ countDown()
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
- enemy = new Enemy(0,70);
- enemy2 = new Enemy(0,160);
- enemy3 = new Enemy(0,255);
- enemy4 = new Enemy(0,340);
+ var enemy = new Enemy(0,70);
+ var enemy2 = new Enemy(0,160);
+ var enemy3 = new Enemy(0,255);
+ var enemy4 = new Enemy(0,340);
  //enemy4 = new Enemy();
  //enemy5 = new Enemy();
- heart1 = new LifeHearts(20,550)
- heart2 = new LifeHearts(80,550)
- heart3 = new LifeHearts(140,550)
+ var heart1 = new LifeHearts(20,550);
+ var heart2 = new LifeHearts(80,550);
+ var heart3 = new LifeHearts(140,550);
  
 
- bomb = new Bomb(randomGemX(),randomGemY());
- bomb2 = new Bomb(randomGemX(),randomGemY());
- bomb3 = new Bomb(randomGemX(),randomGemY());
+ var bomb = new Bomb(randomGemX(),randomGemY());
+ var bomb2 = new Bomb(randomGemX(),randomGemY());
+ var bomb3 = new Bomb(randomGemX(),randomGemY());
 
  var allEnemies = [enemy,enemy2,enemy3,enemy4];
  var player = new Player(255,460);
@@ -384,7 +381,7 @@ countDown()
  var score = new Score(520,600);
  var gem = new Gem(randomGemX(),randomGemY());
  var allBombs = [bomb,bomb2,bomb3];
- var timerText = new TimerText(520,120)
+ var timerText = new TimerText(520,120);
  
 
 
