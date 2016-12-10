@@ -22,11 +22,11 @@ To run game click on index.html file inside the arcadeGame folder.
 
 # Configuration
 
-The js file includes app.js, engine.js, resource.js.
+The js file includes three files including, app.js, engine.js, resource.js.
 
-app.js holds all game functions that involve: sprite rendering, sprite movement, collision detection, keyboard input, game scoring, timer, life heart functions, and collectable item functions.
+The app.js contains all game functions that involve: sprite rendering, sprite movement, collision detection, keyboard input, game scoring, timer, life heart functions, and collectable item functions.
 
-engine.js deals with game loop functionality, renders initial gameboard, and calls/updates rendered. sprites
+The engine.js handles the game loop functionality, renders the initial gameboard, and calls/updates the rendered sprites.
 
 resources.js is the image loading utility.
 
