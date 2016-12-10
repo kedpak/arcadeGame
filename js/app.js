@@ -1,6 +1,6 @@
 
 // Alert message for game instructions before game starts
-alert('Get as many points in 60 seconds! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!')
+alert('Get as many points in 60 seconds! Use arrow keys to move! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!')
 
 //////////Enemies our player must avoid
 var Enemy = function(x,y) {
