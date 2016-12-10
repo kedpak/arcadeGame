@@ -1,6 +1,6 @@
 //////////Enemies our player must avoid
 
-
+alert('Get as many points in 60 seconds! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!')
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -75,7 +75,7 @@ var collision = false;
 Player.prototype.collision = function() {
         
         for(i = 0; i < allEnemies.length; i++) {
-        var playerChar = {x: this.x, y: this.y, width:40, height:70};
+        var playerChar = {x: this.x, y: this.y, width:40, height:60};
         var enemyChar = {x: allEnemies[i].x, y: allEnemies[i].y, width:50, height:60};
         if(playerChar.x < enemyChar.x + enemyChar.width &&
             playerChar.x + playerChar.width > enemyChar.x &&
@@ -88,7 +88,7 @@ Player.prototype.collision = function() {
            
             }
 
-        }
+        };
       
 };
 var reset = false;
@@ -214,7 +214,7 @@ LifeHearts.prototype.update = function() {
 };
 
 LifeHearts.prototype.gameOver = function() {
-    if(hearts.length < 1) {
+    if(hearts.length < 1 || sec == 0) {
         alert("Game over! Your score was " + start + "!! Click OK to try again!!");
         location.reload();
     }
@@ -226,7 +226,7 @@ var Score = function(x,y) {
 };
 
 var winPoint = false;
-
+var timePoint = false;
 
 Score.prototype.update = function() {
     this.points();
@@ -235,12 +235,14 @@ Score.prototype.update = function() {
 Score.prototype.points = function() {
     if(reset == true) {
         winPoint = true;
+        timePoint = true;
 
     }
 };
 
 
 var start = 0
+timePoint = false;
 Score.prototype.render = function(){
     
     ctx.font = "50px Ariel";
@@ -298,11 +300,11 @@ Bomb.prototype.moveBomb = function() {
     
     if (moveBomb == true) {
         bomb.x = Math.round(Math.random() * 560) + 1;
-        bomb.y = Math.round(Math.random() * 360) + 90;
+        bomb.y = Math.round(Math.random() * 360) + 100;
         bomb2.x = Math.round(Math.random() * 560) + 1;
-        bomb2.y = Math.round(Math.random() * 360) + 90;
+        bomb2.y = Math.round(Math.random() * 360) + 100;
         bomb3.x = Math.round(Math.random() * 560) + 1;
-        bomb3.y = Math.round(Math.random() * 360) + 90;
+        bomb3.y = Math.round(Math.random() * 360) + 100;
         moveBomb = false;
     }
 
@@ -310,28 +312,39 @@ Bomb.prototype.moveBomb = function() {
 
 Bomb.prototype.update = function() {
     this.moveBomb();
-}
-
-var PointText = function(x,y) {
-    this.x = x;
-    this.y = y;
-}
-
-PointText.prototype.render = function() {
-    ctx.font = "50px Ariel";
-    ctx.fillStyle = "green";
-    ctx.fillText("+1", this.x, this.y); 
 };
 
 
 
-PointText.prototype.update = function() {
-    if (winPoint == true) {
-        pointText.render();
-        console.log("YAY")
-    }
-}
 
+var TimerText = function(x,y) {
+    this.x = x;
+    this.y = y;
+};
+
+sec = 60;
+TimerText.prototype.render = function() { 
+   
+
+    ctx.font = "50px Ariel";
+    ctx.fillStyle = "yellow";
+    ctx.fillText(sec, this.x, this.y);
+
+    
+};
+
+
+timer = function(){
+    sec--;}
+    
+    console.log("timer");
+    countDown = function(){
+        var timeDown = setInterval(timer,1000)
+        setInterval(timer,1000)
+        clearInterval(timeDown)
+    };
+
+countDown()
 
 
 
@@ -364,7 +377,7 @@ PointText.prototype.update = function() {
  var score = new Score(520,600);
  var gem = new Gem(randomGemX(),randomGemY());
  var allBombs = [bomb,bomb2,bomb3];
- var pointText = new PointText(player.x,player.y)
+ var timerText = new TimerText(520,120)
  //var timer = new Timer();
 
 

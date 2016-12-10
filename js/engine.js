@@ -112,7 +112,7 @@ var Engine = (function(global) {
          score.points();
          gem.update();
          bomb.update();
-         pointText.update();
+         
 
     };
 
@@ -216,6 +216,8 @@ var Engine = (function(global) {
         score.render();
         score.update();
         score.points();
+        timerText.render();
+        
         
 
 
