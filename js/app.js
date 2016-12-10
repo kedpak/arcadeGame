@@ -1,6 +1,8 @@
-//////////Enemies our player must avoid
 
+// Alert message for game instructions before game starts
 alert('Get as many points in 60 seconds! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!')
+
+//////////Enemies our player must avoid
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -28,6 +30,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 };
 
+// Randomizes the speed of each enemy bug
 Enemy.prototype.randomSpeed = function(){
     function randomIntFromInterval(min,max)
     {
@@ -58,7 +61,7 @@ var Player = function(x,y) {
     
     
 };
-
+// Updates player related interactions
 Player.prototype.update = function(dt) {
     
     
@@ -71,6 +74,7 @@ Player.prototype.update = function(dt) {
     
 };
 
+// Deals with the player/enemy collision 
 var collision = false;
 Player.prototype.collision = function() {
         
@@ -91,6 +95,8 @@ Player.prototype.collision = function() {
         };
       
 };
+
+// Reset function for when player collides with enemy
 var reset = false;
 Player.prototype.playerReset = function(){
             this.x = 255;
@@ -98,6 +104,7 @@ Player.prototype.playerReset = function(){
             
 };
 
+// Function to reset bomb location when player crosses to river, and resets player location to start
 Player.prototype.crossed = function() {
     if(this.y < 20) {
         this.playerReset()
@@ -106,13 +113,13 @@ Player.prototype.crossed = function() {
         }
 };
 
-
+// Renders player sprite onto board
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 80,130);
      
     }; 
     
-
+// Implements keyboard controls to game
 Player.prototype.handleInput = function(keys) {
     switch(keys){
         case 'up':
@@ -147,6 +154,7 @@ Player.prototype.handleInput = function(keys) {
     
 };
 
+// Function for collision between player and gem item
 Player.prototype.gemCollect = function() {
         var playerChar = {x: this.x, y: this.y, width:60, height:60};
         var gems = {x: gem.x, y: gem.y, width:60, height:60};
@@ -163,6 +171,8 @@ Player.prototype.gemCollect = function() {
             
         }
     };
+
+// Function for collision between player and bomb item
 var moveBomb = false;
 Player.prototype.bombHit = function() {
         
@@ -186,7 +196,7 @@ Player.prototype.bombHit = function() {
 }
 
 
-
+// Functions rendering hearts and heart loss mechanics
 
 var LifeHearts = function(a,b) {
     this.lifeHearts = 'images/Heart.png';
@@ -213,6 +223,7 @@ LifeHearts.prototype.update = function() {
     this.gameOver();
 };
 
+// Initiates game over alert when heart hits 0 OR time clock hits 0
 LifeHearts.prototype.gameOver = function() {
     if(hearts.length < 1 || sec == 0) {
         alert("Game over! Your score was " + start + "!! Click OK to try again!!");
@@ -220,6 +231,8 @@ LifeHearts.prototype.gameOver = function() {
     }
 };
 
+
+// Functions that render player's score and updates accordingly
 var Score = function(x,y) {
     this.x = x;
     this.y = y;
@@ -261,6 +274,7 @@ Score.prototype.render = function(){
 
 };
 
+// Functions rendering gem item and updates accordingly
 var Gem = function(x,y) {
     this.sprite = "images/Gem Blue.png";
     this.x = x;
@@ -286,6 +300,8 @@ randomGemY = function() {
     return Math.round(Math.random() * 360) + 70;
 };
 
+
+// Functions render bomb item and updates accordingly 
 var Bomb = function(x,y) {
     this.sprite = "images/bomb.png";
     this.x = x;
@@ -316,7 +332,7 @@ Bomb.prototype.update = function() {
 
 
 
-
+// Function renders timer text onto game screen 
 var TimerText = function(x,y) {
     this.x = x;
     this.y = y;
@@ -333,7 +349,7 @@ TimerText.prototype.render = function() {
     
 };
 
-
+// Sets up a countdown function 
 timer = function(){
     sec--;}
     
