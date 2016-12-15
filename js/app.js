@@ -2,6 +2,93 @@
 // Alert message for game instructions before game starts
 alert('Get as many points in 60 seconds! Use arrow keys to move! Cross to water = +1 point; Gem = +1 Point; Bomb = -1 Point; Good Luck!');
 
+var go = false; //Toggles between start screen and game
+var Startscreen = function(sprites,x,y) {
+    this.sprites = characters;
+    this.x = x;
+    this.y = y;
+};
+
+var characters = ['images/char-boy.png','images/char-cat-girl.png','images/char-horn-girl.png','images/char-pink-girl.png','images/char-princess-girl.png','images/char-boy.png'];
+
+// Renders the start screen/character select menu
+Startscreen.prototype.menu = function(keys) {
+    
+    ctx.beginPath();
+    ctx.fillStyle = "blue";
+    ctx.fillRect(0,50,606,644);
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "gray";
+    ctx.fillRect(97,100,410,500);
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.font =  "50px Ariel";   
+    ctx.fillStyle = "yellow";
+    ctx.fillText("Character Select", 140,180);
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.font = "17px Ariel";
+    ctx.fillStyle = "yellow";
+    ctx.fillText("Press Shift to toggle player. Press Spacebar to start game", 115,385);
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.moveTo(350,400);
+    ctx.lineTo(350,500);
+    ctx.lineTo(400,450);
+    ctx.lineTo(350,400);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "red";
+    ctx.moveTo(250,400);
+    ctx.lineTo(250,500);
+    ctx.lineTo(200,450);
+    ctx.lineTo(250,400);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.drawImage(Resources.get(this.sprites[0]),230,150,140,250)
+    
+    switch(keys) {
+    case 'shift':
+        
+        if(this.sprites[0]) {
+            this.sprites[0] = this.sprites[1] 
+        }
+        if(this.sprites[1]) {
+            this.sprites[1] = this.sprites[2]
+        };
+        if(this.sprites[2]) {
+            this.sprites[2] = this.sprites[3]
+        };
+        if(this.sprites[3]) {
+            this.sprites[3] = this.sprites[4]
+        }
+        if(this.sprites[4]) {
+           this.sprites[4] = this.sprites[5]
+        }
+        if(this.sprites[5]) {
+            this.sprites[5] = this.sprites[0]
+        }
+
+    break
+}
+    ctx.closePath()
+};
+
+
+
+
+
+
 //////////Enemies our player must avoid
 var Enemy = function(x,y) {
     // Variables applied to each of our instances go here,
@@ -9,7 +96,6 @@ var Enemy = function(x,y) {
 
     // The image/sprite for our enemies, this uses  
     // a helper we've provided to easily load images
-    
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y;
@@ -38,7 +124,7 @@ Enemy.prototype.randomSpeed = function(){
     }
     this.x = 1;
     this.speed = randomIntFromInterval(100,300);
-    console.log("randomSpeed = "+ this.speed);
+    
 };
 
 
@@ -48,6 +134,7 @@ Enemy.prototype.randomSpeed = function(){
 Enemy.prototype.render = function() {
 
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    
 };
 
 
@@ -55,7 +142,7 @@ Enemy.prototype.render = function() {
 //Player functions//////////////////
 
 var Player = function(x,y) {
-    this.sprite = 'images/char-boy.png';
+    this.sprite = characters;
     this.x = x;
     this.y = y;
     
@@ -108,7 +195,7 @@ Player.prototype.crossed = function() {
 
 // Renders the player sprite onto the game screen. 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y, 80,130);
+    ctx.drawImage(Resources.get(this.sprite[0]), this.x, this.y, 80,130);
      
     }; 
     
@@ -133,7 +220,34 @@ Player.prototype.handleInput = function(keys) {
             this.x += movement;
             console.log("Pressed Right key");
             break;
-    }
+        case 'spacebar':
+            go = !go;
+            console.log("start")
+            countDown();
+            break;
+        case 'shift':
+        
+        if(this.sprite[0]) {
+            this.sprite[0] = this.sprite[1] 
+        }
+        if(this.sprite[1]) {
+            this.sprite[1] = this.sprite[2]
+        }
+        if(this.sprite[2]) {
+            this.sprite[2] = this.sprite[3]
+        }
+        if(this.sprite[3]) {
+            this.sprite[3] = this.sprite[4]
+        }
+        if(this.sprite[4]) {
+           this.sprite[4] = this.sprite[5]
+        }
+        if(this.sprite[5]) {
+            this.sprite[5] = this.sprite[0]
+        }
+            break; 
+        };
+    
     if (this.x < 0) {
         this.x = 0;
     }
@@ -235,7 +349,7 @@ var Score = function(x,y) {
 };
 
 var winPoint = false;
-var timePoint = false;
+
 
 Score.prototype.update = function() {
     this.points();
@@ -260,7 +374,7 @@ Score.prototype.render = function(){
     ctx.fillText(start, this.x, this.y); 
     if(winPoint === true) {
         
-        start ++;
+        start++;
         winPoint = false;
         reset = false;
         
@@ -340,20 +454,17 @@ TimerText.prototype.render = function() {
     
 };
 
+
 // Sets up a countdown function to give game a time limit. 
 var timer = function(){
+
     sec--;};
     
-    var countDown = function(){
-        var timeDown = setInterval(timer,1000);
-        setInterval(timer,1000);
-        clearInterval(timeDown);
-    };
-
-countDown();
-
-
-
+var countDown = function(){
+    var timeDown = setInterval(timer,1000);
+    setInterval(timer,1000);
+    clearInterval(timeDown);
+    }; 
 
 
 
@@ -382,6 +493,8 @@ countDown();
  var gem = new Gem(randomGemX(),randomGemY());
  var allBombs = [bomb,bomb2,bomb3];
  var timerText = new TimerText(520,120);
+
+ var startscreen = new Startscreen(0,0)
  
 
 
@@ -392,9 +505,12 @@ document.addEventListener('keyup', function(e) {
         37: 'left',
         38: 'up',
         39: 'right',
-        40: 'down'
+        40: 'down',
+        32: 'spacebar',
+        16: 'shift'
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+    startscreen.menu(allowedKeys[e.keyCode]);
 }); 
 

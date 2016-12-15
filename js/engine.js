@@ -48,7 +48,17 @@ var Engine = (function(global) {
          * our update function since it may be used for smooth animation.
          */
         update(dt);
+        
+
+        if(go) {
+
         render();
+        
+            } else {
+        startscreen.menu();
+        
+        };
+        //render();
 
         /* Set our lastTime variable which is used to determine the time delta
          * for the next time this function is called.
@@ -123,8 +133,14 @@ var Engine = (function(global) {
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
+        
+
+                
+
+
+
         var rowImages = [
-                'images/water-block.png',    // Row 1
+                'images/water-block.png',   // Row 1
                 'images/stone-block.png',   // Row 2
                 'images/stone-block.png',   // Row 3
                 'images/stone-block.png',   // Row 4
@@ -157,9 +173,18 @@ var Engine = (function(global) {
 
         renderEntities();
         function renderText() {
+            ctx.beginPath()
             ctx.font = "20px Comic Sans MS";
             ctx.fillStyle = "yellow";
             ctx.fillText("Get to the other side!", 220,100);
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.font = "20px Comic Sans MS";
+            ctx.fillStyle = "orange";
+            ctx.fillText("Timer", 520,75)
+
+
 
 
         
@@ -208,6 +233,7 @@ var Engine = (function(global) {
         score.points();
         timerText.render();
         
+        
 };
 
 
@@ -232,6 +258,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-horn-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
         'images/enemy-bug.png',
         'images/Heart.png',
         'images/Gem Blue.png',
